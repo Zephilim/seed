@@ -5,11 +5,13 @@ This (alpha) is the first attempt at creating a server node based seed project. 
 project is to create a project that establishes a baseline of a developer workflow and uses the following frameworks/tools:
 
   :large_blue_circle: typescript
+
   :large_blue_circle: gulp
+
   :large_blue_circle: mocha
 
 There are currently preciously few resources online that document this to a level that is production
-ready . These seed projects aims to fill that gap and you can't reley on any books because more often than not, there are out of date and simply don't work or have deprecated dependencies :thumbsdown:.
+ready . These seed projects aims to fill that gap and you can't rely on any books because more often than not, they are out of date and simply don't work or have deprecated dependencies :thumbsdown:.
 
 It is assumed the reader is familiar with node basics such as how to use npm, so those wont't be documented here as there are enough adequate resources that fulfill this requirement.
 
