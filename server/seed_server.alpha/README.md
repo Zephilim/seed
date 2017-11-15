@@ -186,3 +186,12 @@ The rest of this tutorial talks about taking this code to the browser using Brow
 
 I think by this point, you can see the frustration :unamused: with most tutorials on the web (especially for server based projects) in that we get so far and then stop, when in actual fact, we've not achieved much; but on we go.
 
+## Summary of getting started with Gulp
+
+So at this point, we have a single default gulp task that compiles the source typescript code and generates javascript in the dist directory. It does this as via the tsconfig.json as follows
+
+  :o: the *files* property in *tsconfig.json* explicitly defines the source typescript to compile. This is done with *tsProject.src()* where *tsProject* is created with *ts.createProject("tsconfig.json")*; ie *src()* creates a stream of source files. (An alternative way to use *.src()* would be to pass in an explicit source file name, eg *src("source_file.ts")*, or indeed a better example would be *src("src/**/*.ts")*).
+
+  :o: es5 is targetted
+
+I have just discovered that this tutorial is not the best starting point for defining a gulp typescript project. The reason for this conclusion is that the way used to compile the sources is not the most basic way of doing so. There is better information at :link: https://www.npmjs.com/package/gulp-typescript, so this attempt ends here, and onto *beta* we go.
