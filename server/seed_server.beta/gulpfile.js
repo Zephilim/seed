@@ -7,7 +7,7 @@ var reporter = ts.reporter.longReporter();
 var tsProject = ts.createProject('tsconfig.json', reporter);
 
 gulp.task('clean', function (cb) {
-  del(['./release/js/*.*']);
+  del(['./release/js/*.*', './release/maps/*.*']);
   return cb();
 });
 

@@ -1,1 +1,0 @@
-{"version":3,"sources":["main.ts"],"names":[],"mappings":";;AAAA,iCAAmC;AAEnC,OAAO,CAAC,GAAG,CAAC,gBAAQ,CAAC,YAAY,CAAC,CAAC,CAAC","file":"../src/main.js","sourcesContent":["import { sayHello } from \"./greet\";\n\nconsole.log(sayHello(\"TypeScript\"));\n"]}

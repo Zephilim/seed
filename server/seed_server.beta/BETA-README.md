@@ -539,5 +539,14 @@ gulp.task('templates', ['clean'], function() {
 
 The result of *.pipe(...)* call is stored as a stream and returned. And in our code, the result of *.pipe(...)* call is stored as *tsResult* which also looks like a stream, so no further action required. Let's move on.
 
+## Correct the clean task
 
+Currently, the *clean task* only deletes files in *./release/js/* directory and does not clean the *./release/maps/*, so let's correct that now.
 
+This should simply be a matter of inserting the additional directory into the array passed into the call to *del*:
+
+```javascript
+gulp.task('clean', function (cb) {
+  return del(['./release/js/*.*', './release/maps/*.*']); // <-- insert additional directory
+});
+```
