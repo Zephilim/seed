@@ -372,5 +372,172 @@ var reporter = ts.reporter.longReporter();
 var tsProject = ts.createProject('tsconfig.json', reporter);  // <--- pass in a reporter
 ```
 
+Everything at *https://www.npmjs.com/package/gulp-typescript* has been added to the project, but there are a few additional things to add ...
+
+## Add a delete task
+
+To ensure the output directory is cleaned before each build, we need to use *del* to remove the contents of the prior to the build.
+
+Reference: :link: *https://gulpjs.org/recipes/delete-files-folder*
+
+First install del
+
+  λ npm install del --save-dev
+
+```
+λ ~/dev/github/seed/server/seed_server.beta/ beta* npm install del --save-dev
+npm WARN seed_server.beta@1.0.0 No description
+npm WARN seed_server.beta@1.0.0 No repository field.
+
++ del@3.0.0
+added 19 packages in 5.331s
+λ ~/dev/github/seed/server/seed_server.beta/ beta* 
+```
+
+```javascript
+del = require('del');
+
+gulp.task('clean', function() {
+    return del(['./release/js/*.*'])
+});
+```
+
+... then add it as a dependency to the build task
+
+```javascript
+gulp.task('build', ['clean'], function () {
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('release/js'))
+});
+```
+
+## Running tasks in a series
+
+The previous section illustrated how to use a clean task to delete the contents of an output directory prior to completing the build. It turns out, this has not quite been implmented properly, because of the way gulp executes tasks. When tasks are specified as dependencies, by default the gulp will try and running all the tasks in parallel. This means that there is no guarantee that the delete has completed before the build starts which means generated files could unintentionally be deleted by the clean task. There is a recipe on gulpjs.org that shows how to address this issue.
+
+Reference: https://gulpjs.org/recipes/running-tasks-in-series
+
+Running tasks in a series can be done 1 of 2 ways:
+
+  1) via a callback
+  2) via a stream
+
+```javascript
+gulp.task('clean', function () {
+  return del(['./release/js/*.*'])
+});
+
+gulp.task('build', ['clean'], function () {
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('release/js'))
+});
+```
+
+### Running tasks in a series via Callback
+
+```javascript
+var gulp = require('gulp');
+var del = require('del');
+
+gulp.task('clean', function (cb) { // <--- callback passed here
+  del(['./release/js/*.*']);
+  return cb(); // <-- return here is important
+});
+
+gulp.task('build', ['clean'], function () {
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('release/js'));
+});
+```
+
+Note that if you forget to return after invoking the callback, you will get a strange error as shown below:
+
+```
+λ ~/dev/github/seed/server/seed_server.beta/ beta* gulp clean
+error TS5023: Unknown compiler option 'error'.
+error TS5023: Unknown compiler option 'finish'.
+[19:10:57] Using gulpfile ~/dev/github/seed/server/seed_server.beta/gulpfile.js
+[19:10:57] Starting 'clean'...
+[19:10:57] Finished 'clean' after 2.52 ms
+λ ~/dev/github/seed/server/seed_server.beta/ beta* 
+
+```
+
+```javascript
+var gulp = require('gulp');
+var del = require('del');
+
+var reporter = ts.reporter.longReporter();
+var tsProject = ts.createProject('tsconfig.json', reporter);
+
+gulp.task('clean', function (cb) {
+  return del(['./release/js/*.*']);
+});
+
+gulp.task('build', ['clean'], function () {
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('release/js'));
+});
+```
+
+### Running tasks in a series via Stream
+
+```javascript
+var gulp = require('gulp');
+var del = require('del');
+
+var reporter = ts.reporter.longReporter();
+var tsProject = ts.createProject('tsconfig.json', reporter);
+
+gulp.task('clean', function (cb) {
+  return del(['./release/js/*.*']);
+});
+
+gulp.task('build', ['clean'], function () {
+  var tsResult = tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(tsProject());
+
+  return tsResult.js
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('release/js'));
+});
+```
+
+Having re-read the tutoral about streams in *https://gulpjs.org/recipes/running-tasks-in-series* it looks like our original implementation was already using a stream, but with different variable names.
+
+Consider this:
+
+```javascript
+gulp.task('templates', ['clean'], function() {
+    var stream = gulp.src(['src/templates/*.hbs'])
+        // do some concatenation, minification, etc.
+        .pipe(gulp.dest('output/templates/'));
+    return stream; // return the stream as the completion hint
+});
+```
+
+The result of *.pipe(...)* call is stored as a stream and returned. And in our code, the result of *.pipe(...)* call is stored as *tsResult* which also looks like a stream, so no further action required. Let's move on.
+
 
 

@@ -1,15 +1,10 @@
 
 * outfile
 
-* a proposed delete task:
 
-```javascript
-del = require('del'),
+* gulp-tslint
 
-gulp.task('clean', function(cb) {
-    del(['./resources/css_gulp/*.*'], cb)
-});
-```
+* gulp-watch (Rebuild only files that change)
 
 * production test use gulp-util / gulp-if
 var _if = require('gulp-if'),
@@ -24,3 +19,7 @@ var production = gutil.env.production;
 
 
 * what is gulp-notify?
+
+* learn this: https://gulpjs.org/recipes/running-tasks-in-series
+
+* apply DRY
