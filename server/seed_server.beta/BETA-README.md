@@ -541,7 +541,7 @@ The result of *.pipe(...)* call is stored as a stream and returned. And in our c
 
 ## Correct the clean task
 
-Currently, the *clean task* only deletes files in *./release/js/* directory and does not clean the *./release/maps/*, so let's correct that now.
+Currently, the *clean* task only deletes files in *./release/js/* directory and does not clean the *./release/maps/*, so let's correct that now.
 
 This should simply be a matter of inserting the additional directory into the array passed into the call to *del*:
 
@@ -550,3 +550,54 @@ gulp.task('clean', function (cb) {
   return del(['./release/js/*.*', './release/maps/*.*']); // <-- insert additional directory
 });
 ```
+
+## Add typescript linting using tslint & gulp-tslint
+
+Reference: :link: https://www.npmjs.com/package/gulp-tslint
+
+First install tsling & gulp-tslint:
+
+  λ npm install tslint gulp-tslint --save-dev
+
+```
+λ ~/dev/github/seed/server/seed_server.beta/ beta* npm install tslint gulp-tslint --save-dev
+npm WARN seed_server.beta@1.0.0 No description
+npm WARN seed_server.beta@1.0.0 No repository field.
+
++ tslint@5.8.0
++ gulp-tslint@8.1.2
+added 21 packages in 3.547s
+```
+
+Lint task:
+
+```javascript
+var tslint = require("gulp-tslint");
+//var lintProject = ts.createProject('tsconfig.json');
+
+gulp.task("tslint", function() {
+    gulp.src("./src/**/*.ts")
+        .pipe(tslint({
+            formatter: "verbose"
+        }))
+        .pipe(tslint.report())
+  }
+);
+```
+
+Simply running this task in this state results in the following:
+
+  λ gulp tslint
+
+```
+λ ~/dev/github/seed/server/seed_server.beta/ beta* gulp tslint
+error TS5023: Unknown compiler option 'error'.
+error TS5023: Unknown compiler option 'finish'.
+[22:38:39] Using gulpfile ~/dev/github/seed/server/seed_server.beta/gulpfile.js
+[22:38:39] Starting 'tslint'...
+No valid rules have been specified
+[22:38:39] Finished 'tslint' after 27 ms
+λ ~/dev/github/seed/server/seed_server.beta/ beta* 
+```
+
+

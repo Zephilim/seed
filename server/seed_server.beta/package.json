@@ -14,8 +14,10 @@
     "gulp": "^3.9.1",
     "gulp-debug": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
+    "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.3",
     "merge2": "^1.2.0",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   }
 }
