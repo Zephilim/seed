@@ -15,9 +15,18 @@ compiling source, which should be explored first. The way used in this example i
 applicable to defining an incremental build, but at this early stage, this is not required
 and more fundamental concepts needs to be explored first.
 
-## Beta
+## Beta :lock:
 
 Project Name (Greek) | Description
 ---------------------|------------
 Beta  | Use :link: https://www.npmjs.com/package/gulp-typescript as a starting point.
+
+Some progress has been made on the beta project, but during my on going investigations whilst developing this seed and in particular when I started adding tslint to the project I discovered a blog which documented a workflow using Typescript and Gulp (*"Creating a TypeScript Workflow with Gulp"* :link: https://weblogs.asp.net/dwahlin/creating-a-typescript-workflow-with-gulp). Naturally, my interest was piqued and so I investigated further. I will not discuss much further here, please see the next seed (Delta) for more details.
+
+## Gamma :star2:
+
+Project Name (Greek) | Description
+---------------------|------------
+Gamma  | Use :link: https://weblogs.asp.net/dwahlin/creating-a-typescript-workflow-with-gulp as a starting point.
+
 

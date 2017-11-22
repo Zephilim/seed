@@ -600,4 +600,6 @@ No valid rules have been specified
 λ ~/dev/github/seed/server/seed_server.beta/ beta* 
 ```
 
+I found an Angular2 seed project which uses Gulp and Typescript which has many of the answers I have been seeking so it seems prudent to speed up my progress by using this seed for my own starting point. Beta ends here.
+
 
