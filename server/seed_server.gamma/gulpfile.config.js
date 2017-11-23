@@ -3,9 +3,10 @@ var GulpConfig = (function () {
     function GulpConfig() {
 
         this.source = './src/';
+        this.release = './release/';
         this.sourceApp = this.source + 'app/';
 
-        this.tsOutputPath = this.source + 'js';
+        this.tsOutputPath = this.release + 'js';
         this.allJavaScript = [this.source + 'js/**/*.js'];
         this.allTypeScript = this.sourceApp + '**/*.ts';
 

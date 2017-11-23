@@ -284,3 +284,22 @@ gulp.task('default', ['lint', 'compile', 'refs', 'watch']);
 
 This works out of the box, so nothing to do here :thumbsup:
 
+## Reorganise project structure
+
+I don't like the current project structure because the output files are generated under the source (src) directory which seems counter intuitive:
+
+```
+└── src
+    ├── app
+    └── js    // <-- This is an output directory, under the source
+```
+
+*tsOutputPath* in the *gulpfile.onfig.js* has been redirected to *./release* so now we have a hierachy that looks like this:
+
+```
+├── release
+│   └── js
+└── src
+    └── app
+```
+
