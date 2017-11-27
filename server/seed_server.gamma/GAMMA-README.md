@@ -303,3 +303,110 @@ I don't like the current project structure because the output files are generate
     └── app
 ```
 
+## Run Mocha tests with gulp-mocha
+
+### Install dependencies
+
+  λ npm install --save-dev gulp-mocha
+
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma npm install --save-dev gulp-mocha
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ gulp-mocha@4.3.1
+added 30 packages in 4.341s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+  λ npm install --save-dev mocha-typescript
+
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install --save-dev mocha-typescript
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ mocha-typescript@1.1.12
+added 19 packages in 3.774s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+  λ npm install chai --save-dev
+
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install chai --save-dev 
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ chai@4.1.2
+added 7 packages in 3.056s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+### Add "test" task
+
+The following example was found at :link: https://www.npmjs.com/package/gulp-mocha
+
+```javascript
+gulp.task('default', () =>
+    gulp.src('test.js', {read: false})
+        // `gulp-mocha` needs filepaths so you can't have any plugins before it 
+        .pipe(mocha({reporter: 'nyan'}))
+);
+```
+
+npm install mocha --save-dev
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install mocha --save-dev
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ mocha@4.0.1
+added 6 packages, updated 5 packages and moved 3 packages in 4.896s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+npm install @types/chai @types/mocha --save-dev
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install @types/chai @types/mocha --save-dev
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ @types/chai@4.0.5
++ @types/mocha@2.2.44
+added 2 packages in 3.983s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+
+```
+
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install ts-node --save-dev
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ ts-node@3.3.0
+added 12 packages in 5.86s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+```
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* npm install --save-dev tslint-eslint-rules
+npm WARN seed_server.gamma@1.0.0 No description
+npm WARN seed_server.gamma@1.0.0 No repository field.
+
++ tslint-eslint-rules@4.1.1
+added 4 packages in 3.377s
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+```
+
+
+npm install chai mocha ts-node @types/chai @types/mocha --save-dev
+
+
+
+  Failed to lint: /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [13, 1]: trailing whitespace, /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [3, 1]: Import sources within a group must be alphabetized.,
+  
+  /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [2, 26]: ' should be ", /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [3, 24]: ' should be ", /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [11, 10]: ' should be ", /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [12, 6]: ' should be ", /Users/zephilim/dev/github/seed/server/seed_server.gamma/src/app/dummy.spec.ts [15, 29]: ' should be ".
+λ ~/dev/github/seed/server/seed_server.gamma/ gamma* 
+
+

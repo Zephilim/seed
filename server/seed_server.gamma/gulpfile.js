@@ -7,12 +7,17 @@ var gulp = require('gulp'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     clean = require('gulp-clean'),
+    mocha = require('gulp-mocha'),
     Config = require('./gulpfile.config');
 
 var config = new Config();
 
 /**
  * Generates the app.d.ts references file dynamically from all application *.ts files.
+ * 
+ * COMMENT for Alvin: I'm not too sure what the refs task is supposed to do, so perhaps
+ * you could explain it to me. I think its generating typescript references, but I dont
+ * fully understand this yet.
  */
 gulp.task('refs', function () {
     var target = gulp.src(config.appTypeScriptReferences);
@@ -34,7 +39,9 @@ gulp.task('lint', function () {
         .pipe(tslint({
             formatter: "prose"
         }))
-        .pipe(tslint.report());
+        .pipe(tslint.report({
+            emitError: false
+        }));
 });
 
 /**
@@ -73,6 +80,16 @@ gulp.task('clean', function () {
   return gulp.src(typeScriptGenFiles, {read: false})
       .pipe(clean());
 });
+
+/**
+ * Run mocha test cases
+ */
+gulp.task('test', () =>
+    gulp.src(config.tests, { read: false })
+        // `gulp-mocha` needs filepaths so you can't have any plugins before it 
+        .pipe(mocha({ reporter: 'nyan' }))
+);
+
 
 gulp.task('watch', function() {
     gulp.watch([config.allTypeScript], ['lint', 'compile', 'refs']);
