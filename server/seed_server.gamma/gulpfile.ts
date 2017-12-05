@@ -3,8 +3,7 @@ import * as gulp from 'gulp';
 import * as runSequence from 'run-sequence';
 import * as sourceMaps from 'gulp-sourcemaps';
 import * as tsc from 'gulp-typescript';
-
-
+import * as gulpMocha from 'gulp-mocha';
 
 
 /**
@@ -54,17 +53,25 @@ return result.js
 });
 
 /**
+ * Adding run test
+ */
+gulp.task("test:express", () => {
+    gulp.src("dist/tests", { read: false })
+    .pipe( gulpMocha());
+});
+
+/**
 * Build the project.
 */
 gulp.task("default", (done) => {
-runSequence("clean", "copy", "build:express");
+    runSequence("clean", "copy", "build:express", "test:express");
 });
 
 // /**
 //  * Start Server
 //  */
-// gulp.task('server', function (cb) {
-//     exec('node lib/app.js', function (err, stdout, stderr) {
+// gulp.task("server", (cb) => {
+//     exec("node ./dist/bin/www", function (err, stdout, stderr) {
 //       console.log(stdout);
 //       console.log(stderr);
 //       cb(err);
