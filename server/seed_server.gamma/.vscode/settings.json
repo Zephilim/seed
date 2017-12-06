@@ -1,0 +1,6 @@
+{
+    "window.zoomLevel": 0,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "tslint.enable": false,
+    "tslint.rulesDirectory": "../src/"
+}
