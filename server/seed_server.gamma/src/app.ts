@@ -24,7 +24,7 @@ const expressHandleBars = require("express-handlebars").create({
 const app = express();
 
 // connecting to mongoose
-mongoose.connect("localhost:27017/");
+// mongoose.connect("localhost:27017/");
 
 // view engine setup
 app.engine("hbs", expressHandleBars.engine);
